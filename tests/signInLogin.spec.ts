@@ -1,0 +1,39 @@
+import { test, expect } from "@playwright/test";
+import { LoginPage } from "../src/pages/loginPage";
+import { users } from "../src/helpers/users";
+
+test("Should successfully log in with a standard user", async ({ page }) => {
+  // Cria uma instancia de pagina de login
+  const loginPage = new LoginPage(page);
+
+  // Vai para a pagina de login
+  await loginPage.start();
+
+  // Realizar o login
+  await loginPage.signIn(users.standard_user);
+
+  // Serve para validar se o login foi feito com sucesso
+  const textContent = page.locator('div[class="app_logo"]');
+  
+
+  // Expect a title "to contain" a substring.
+  await expect(textContent).toHaveText('Swag Labs');
+});
+
+test("Should failed log in with a locked user", async ({page}) => {
+    // Cria uma instancia de pagina de login
+  const loginPage = new LoginPage(page);
+
+   // Vai para a pagina de login
+   await loginPage.start();
+
+  // Realizar o login
+  await loginPage.signIn(users.locked_out_user);
+
+  // Serve para localizar o toast de erro
+  const textContent = page.locator('h3[data-test="error"]');
+  
+
+  // Validar se a pensagem dentro do toast e a passada no toHaveText.
+  await expect(textContent).toHaveText('Epic sadface: Sorry, this user has been locked out.');
+})
