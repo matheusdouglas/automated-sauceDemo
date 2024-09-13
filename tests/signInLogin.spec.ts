@@ -5,18 +5,9 @@ import { users } from "../src/helpers/users";
 test("Should successfully log in with a standard user", async ({ page }) => {
   // Cria uma instancia de pagina de login
   const loginPage = new LoginPage(page);
-
-  // Vai para a pagina de login
   await loginPage.start();
-
-  // Realizar o login
   await loginPage.signIn(users.standard_user);
-
-  // Serve para validar se o login foi feito com sucesso
   const textContent = page.locator('div[class="app_logo"]');
-  
-
-  // Expect a title "to contain" a substring.
   await expect(textContent).toHaveText('Swag Labs');
 });
 

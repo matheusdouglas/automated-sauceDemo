@@ -16,5 +16,9 @@ COPY . .
 # Instale o Playwright e seus navegadores
 RUN npx playwright install
 
+# Expoem a porta
+EXPOSE 9222
+
+
 # Defina o comando para rodar os testes
 CMD ["npx", "playwright", "test"]

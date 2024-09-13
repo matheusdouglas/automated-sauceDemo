@@ -1,7 +1,24 @@
 import { Page, Locator } from "@playwright/test";
+import { CheckoutPage } from "./CheckoutPage";
 
 export class CartPage {
-  constructor(private page: Page) {}
+  readonly page : Page
+  readonly checkoutButton: Locator;
+  readonly continueShopping: Locator;
+
+
+  constructor(page: Page) {
+    this.page = page
+    this.checkoutButton = page.locator('button[data-test="checkout"]');
+    this.continueShopping = page.locator(
+      'button[data-teste="continue-shopping"]'
+    );
+  }
+
+  async gotoCheckout()  {
+    this.checkoutButton.click();
+    return new CheckoutPage(this.page)
+  }
 
   async getProductNames(): Promise<string[]> {
     // Usa 'this.page' para acessar a página atual

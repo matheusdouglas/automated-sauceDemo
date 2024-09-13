@@ -23,6 +23,7 @@ export class LoginPage {
     await this.password.fill(user.password);
     await this.loginButton.click();
   }
+
 }
 
 
