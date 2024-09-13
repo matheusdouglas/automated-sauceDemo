@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { CheckoutOverviewPage } from "./checkoutOverviewPage";
 
 export class CheckoutPage {
     readonly page: Page;
@@ -32,5 +33,6 @@ export class CheckoutPage {
     // Método para continuar o checkout
     async continueCheckout() {
         await this.continueButton.click();
+        return new CheckoutOverviewPage(this.page);
     }
 }

@@ -2,6 +2,8 @@ import { test, expect } from "@playwright/test";
 import { LoginPage } from "../src/pages/loginPage";
 import { users } from "../src/helpers/users";
 
+
+
 test("Should successfully log in with a standard user", async ({ page }) => {
   // Cria uma instancia de pagina de login
   const loginPage = new LoginPage(page);
