@@ -1,25 +1,23 @@
 pipeline {
     agent { docker { image 'mcr.microsoft.com/playwright:v1.47.0-noble' } }
     
-    stages {
-        stage('Checkout') {
-            steps {
-                // Faz o checkout do código-fonte do repositório
-                checkout scm
-            }
-        }
-        
+    stages { 
         stage('Install Dependencies') {
             steps {
-                // Instala as dependências do projeto
-                sh 'npm ci'
+                sh '''
+                   npm install
+                   npm i -D @playwright/test
+                   npx playwright install
+                   '''
             }
         }
         
         stage('Run Tests') {
             steps {
-                // Executa os testes do Playwright
-                sh 'npx playwright test'
+                 sh '''
+                    npx playwright test --list
+                    npx playwright test
+                    '''
             }
         }
     }
