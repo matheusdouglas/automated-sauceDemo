@@ -1,7 +1,11 @@
 pipeline {
-    agent { docker { image 'mcr.microsoft.com/playwright:v1.47.0-noble' } }
-    
-    stages { 
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.47.0-noble'
+            args '-v /var/jenkins_home/workspace/playwright-jenkins:/workspace -w /workspace'
+        }
+    }
+    stages {
         stage('Install Dependencies') {
             steps {
                 sh '''
