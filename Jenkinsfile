@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/matheusdouglas/automated-sauceDemo.git'
-            }
-        }
-
         stage('Build and Test') {
             steps {
                 script {
