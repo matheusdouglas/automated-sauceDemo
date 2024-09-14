@@ -1,38 +1,30 @@
 pipeline {
     agent any
-
     stages {
         stage('Build and Test') {
             steps {
                 script {
-                    // Instalar dependências
                     bat 'npm install'
-                    
-                    // Executar o docker-compose com --abort-on-container-exit para garantir que falhe se os testes falharem
-                   def result = bat(script: 'docker-compose up', returnStatus: true)
-                    if (result != 0) {
-                        error "Tests failed"
+                    // Executa o docker-compose diretamente sem o modo detached (-d)
+                    def testResult = bat(returnStatus: true, script: 'docker-compose up --abort-on-container-exit')
+                    // Verifica o código de saída e falha a pipeline se for diferente de 0
+                    if (testResult != 0) {
+                        error "Testes falharam! Código de saída: ${testResult}"
                     }
                 }
             }
         }
-
         stage('Cleanup') {
             steps {
                 script {
-                    // Parar e remover os containers após a execução
                     bat 'docker-compose down'
                 }
             }
         }
     }
-
     post {
         always {
-            cleanWs() // Limpar o workspace após a execução
-        }
-        failure {
-            echo 'O pipeline falhou devido a erros nos testes.'
+            cleanWs()
         }
     }
 }
