@@ -5,4 +5,5 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-    command: npx playwright test
+      - ./playwright-report:/app/playwright-report # Montar o volume para salvar o relatório no host
+    command: npx playwright test --reporter=html
