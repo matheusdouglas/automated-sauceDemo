@@ -1,7 +1,7 @@
 version: '3'
 services:
   playwright:
-    image: mcr.microsoft.com/playwright:v1.46.1-jammy  # Atualize para a versão correta
+    image: mcr.microsoft.com/playwright:v1.46.1-jammy  
     working_dir: /app
     volumes:
       - .:/app
