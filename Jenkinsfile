@@ -7,22 +7,15 @@ pipeline {
                 script {
                     bat 'npm install'
                     bat 'docker-compose up' // Subir os containers em background
-                }
-            }
-        }
-
-        stage('Publish Report') {
-            steps {
-                script {
-                    bat 'docker-compose exec playwright npx playwright show-report' // Executa o comando para mostrar o relatório
-                }
-                publishHTML(target: [
+                    bat 'docker-compose exec playwright npx playwright show-report'
+                    publishHTML(target: [
                     reportName: 'Playwright Test Report',
                     reportDir: 'playwright-report',  // Diretório onde o relatório foi salvo
                     reportFiles: 'index.html',
                     alwaysLinkToLastBuild: true,
                     keepAll: false
                 ])
+                }
             }
         }
 
