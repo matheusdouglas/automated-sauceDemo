@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Verifica o código do repositório
-                git 'https://github.com/your-repo-url.git'
-            }
-        }
 
         stage('Build and Test') {
             steps {
