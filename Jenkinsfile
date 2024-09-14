@@ -5,8 +5,11 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    // Instalar dependências
                     bat 'npm install'
-                    bat 'docker-compose up' // Subir os containers em background
+                    
+                    // Executar o docker-compose com --abort-on-container-exit para garantir que falhe se os testes falharem
+                    bat 'docker-compose up --abort-on-container-exit --exit-code-from playwright-1'
                 }
             }
         }
@@ -14,7 +17,8 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    bat 'docker-compose down' // Parar e remover os containers
+                    // Parar e remover os containers após a execução
+                    bat 'docker-compose down'
                 }
             }
         }
@@ -23,6 +27,9 @@ pipeline {
     post {
         always {
             cleanWs() // Limpar o workspace após a execução
+        }
+        failure {
+            echo 'O pipeline falhou devido a erros nos testes.'
         }
     }
 }
