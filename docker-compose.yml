@@ -1,8 +1,7 @@
 version: '3'
 services:
   playwright:
-    image: mcr.microsoft.com/playwright:v1.46.1-jammy  # Atualize para a versão correta
+    build: .  # Construa a imagem a partir do Dockerfile no diretório atual
     working_dir: /app
     volumes:
       - .:/app
-    command: npx playwright test
