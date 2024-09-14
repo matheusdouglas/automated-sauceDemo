@@ -1,33 +1,40 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:v1.47.0-noble'
-            args '-u root' // Isso dá permissões de root no container
-        }
-    }
+    agent any
+
     stages {
-        stage('Install Dependencies') {
+        stage('Checkout') {
             steps {
-                sh '''
-                   npm ci
-                   npx playwright install
-                   '''
+                // Verifica o código do repositório
+                git 'https://github.com/your-repo-url.git'
             }
         }
-        
-        stage('Run Tests') {
+
+        stage('Build and Test') {
             steps {
-                sh '''
-                   npx playwright test --list
-                   npx playwright test
-                   '''
+                // Executa os testes usando Docker Compose
+                script {
+                    // Certifique-se de que o Docker e o Docker Compose estão instalados
+                    sh 'docker-compose up --build --abort-on-container-exit'
+                }
             }
         }
     }
-    
+
     post {
         always {
-            cleanWs() // Limpa o workspace
+            // Executado após todas as etapas, independentemente do resultado
+            echo 'Pipeline finalizada.'
+            // Opcional: Adicione limpeza ou ações pós-teste aqui
+        }
+
+        success {
+            // Executado se o pipeline for bem-sucedido
+            echo 'Pipeline concluída com sucesso.'
+        }
+
+        failure {
+            // Executado se o pipeline falhar
+            echo 'Pipeline falhou.'
         }
     }
 }
