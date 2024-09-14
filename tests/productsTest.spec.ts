@@ -11,19 +11,16 @@ test("Add product to cart and check", async ({ page }) => {
   await loginPage.signIn(users.standard_user);
 
   // Adiciona um produto específico ao carrinho
-  const productName = "Sauce Labs Backpack"
+  const productName = "Sauce Labs Backpack";
   await productPage.addProductToCart(productName);
 
   // Vai para o carrinho e interage com a página de carrinho
   const cartPage = await productPage.goToCart();
-  
+
   // como verificar se o produto foi adicionado
   const productNames = await cartPage.getProductNames();
   expect(productNames).toContain(productName);
-
-  
 });
-
 
 test("Add product to cart and check badge", async ({ page }) => {
   const productPage = new ProductPage(page);
@@ -49,8 +46,7 @@ test("Add product to cart and check badge", async ({ page }) => {
 
   // Contador do carrinho (verifica quantos itens foram adicionados)
   const itensToCart = page.locator('span[data-test="shopping-cart-badge"]');
-  
+
   // Espera que o valor do contador seja '2' (pois foram adicionados 2 itens)
   await expect(itensToCart).toHaveText("2");
 });
-

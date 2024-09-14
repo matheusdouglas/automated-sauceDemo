@@ -30,3 +30,13 @@ test("Should failed log in with a locked user", async ({page}) => {
   // Validar se a pensagem dentro do toast e a passada no toHaveText.
   await expect(textContent).toHaveText('Epic sadface: Sorry, this user has been locked out.');
 })
+
+test("Should show error when Username is empty", async ({ page }) => {
+  // Cria uma instancia de pagina de login
+  const loginPage = new LoginPage(page);
+  await loginPage.start();
+  await loginPage.signIn({username: '' , password: ''})
+ 
+  const errorMessage = page.locator('h3[data-test="error"]');
+  await expect(errorMessage).toContainText('Epic sadface: Username is required')
+});
