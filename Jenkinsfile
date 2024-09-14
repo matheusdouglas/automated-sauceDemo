@@ -2,13 +2,25 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/matheusdouglas/automated-sauceDemo.git'
+            }
+        }
 
         stage('Build and Test') {
             steps {
-                // Executa os testes usando Docker Compose
                 script {
-                    // Certifique-se de que o Docker e o Docker Compose estão instalados
-                    sh 'docker-compose up --build --abort-on-container-exit'
+                    bat 'docker-compose up -d' // Subir os containers em background
+                    bat 'docker-compose exec -T playwright npx playwright test' // Executar os testes
+                }
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                script {
+                    bat 'docker-compose down' // Parar e remover os containers
                 }
             }
         }
@@ -16,19 +28,7 @@ pipeline {
 
     post {
         always {
-            // Executado após todas as etapas, independentemente do resultado
-            echo 'Pipeline finalizada.'
-            // Opcional: Adicione limpeza ou ações pós-teste aqui
-        }
-
-        success {
-            // Executado se o pipeline for bem-sucedido
-            echo 'Pipeline concluída com sucesso.'
-        }
-
-        failure {
-            // Executado se o pipeline falhar
-            echo 'Pipeline falhou.'
+            cleanWs() // Limpar o workspace após a execução
         }
     }
 }
