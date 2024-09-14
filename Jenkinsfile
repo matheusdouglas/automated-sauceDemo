@@ -5,6 +5,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    bat 'npm install'
                     bat 'docker-compose up' // Subir os containers em background
                 }
             }
