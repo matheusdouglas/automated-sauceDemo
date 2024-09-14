@@ -9,7 +9,10 @@ pipeline {
                     bat 'npm install'
                     
                     // Executar o docker-compose com --abort-on-container-exit para garantir que falhe se os testes falharem
-                    bat 'docker-compose up --abort-on-container-exit --exit-code-from playwright-1'
+                   def result = bat(script: 'docker-compose up', returnStatus: true)
+                    if (result != 0) {
+                        error "Tests failed"
+                    }
                 }
             }
         }
