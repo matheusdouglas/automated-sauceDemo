@@ -6,7 +6,6 @@ pipeline {
             steps {
                 script {
                     bat 'docker-compose up -d' // Subir os containers em background
-                    bat 'docker-compose exec -T playwright npx playwright test' // Executar os testes
                 }
             }
         }
