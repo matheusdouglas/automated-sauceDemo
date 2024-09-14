@@ -5,4 +5,5 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-    command: npx playwright test 
+    command: npx playwright test --exit
+
