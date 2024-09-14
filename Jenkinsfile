@@ -2,14 +2,14 @@ pipeline {
     agent {
         docker {
             image 'mcr.microsoft.com/playwright:v1.47.0-noble'
+            args '-u root' // Isso dá permissões de root no container
         }
     }
     stages {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                   npm install
-                   npm i -D @playwright/test
+                   npm ci
                    npx playwright install
                    '''
             }
