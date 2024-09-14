@@ -35,7 +35,7 @@ test("Should show error when Username is empty", async ({ page }) => {
   // Cria uma instancia de pagina de login
   const loginPage = new LoginPage(page);
   await loginPage.start();
-  await loginPage.signIn({username: '321321321' , password: ''})
+  await loginPage.signIn({username: '' , password: ''})
  
   const errorMessage = page.locator('h3[data-test="error"]');
   await expect(errorMessage).toContainText('Epic sadface: Username is required')
