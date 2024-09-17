@@ -5,7 +5,7 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-      - ./allure-results:/app/allure-results
+      - allure-results:/app/allure-results # Mapeia o diretório de resultados
       
     command: npx playwright test --reporter=allure-playwright
 
