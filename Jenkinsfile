@@ -23,23 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('Copy Results') {
-            steps {
-                script {
-                    // Obter o ID do container do Playwright
-                    def containerId = bat 'docker ps -q -f teste-e2e'
-                    
-                    
-                    // Verificar se o container foi encontrado
-                    if (containerId) {
-                        // Copiar os resultados do volume para o workspace do Jenkins
-                        bat "docker cp ${containerId}:/app/allure-results ${WORKSPACE}/allure-results"
-                    } else {
-                        error "Container do Playwright não encontrado."
-                    }
-                }
-            }
-        }
+
     }
     post {
         always {
