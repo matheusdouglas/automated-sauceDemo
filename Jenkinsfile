@@ -25,9 +25,19 @@ pipeline {
     }
     post {
         always {
-            // Limpar workspace e gerar relatórios do Allure
-            cleanWs()
-            allure includeProperties: false, results: [[path: 'allure-results']]
+            script {
+                // Limpar workspace
+                cleanWs()
+                
+                // Copiar diretório de resultados do contêiner para o workspace
+                bat 'docker cp $(docker ps -q -f name=teste-e2e-playwright-1):/app/allure-results allure-results'
+                
+                // Verificar o conteúdo do diretório de resultados para depuração
+                bat 'dir allure-results'
+                
+                // Gerar relatórios do Allure
+                allure includeProperties: false, results: [[path: 'allure-results']]
+            }
         }
     }
 }
