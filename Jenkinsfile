@@ -29,6 +29,7 @@ pipeline {
                     // Obter o ID do container do Playwright
                     def containerId = bat 'docker ps -q -f teste-e2e'
                     
+                    
                     // Verificar se o container foi encontrado
                     if (containerId) {
                         // Copiar os resultados do volume para o workspace do Jenkins
