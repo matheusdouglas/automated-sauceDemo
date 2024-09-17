@@ -25,9 +25,24 @@ pipeline {
     }
     post {
         always {
-            // Limpar workspace e gerar relatórios do Allure
+            script {
+                // Obter o ID do container do Playwright
+                def containerId = bat(returnStdout: true, script: 'docker ps -q -f name=teste-e2e-playwright').trim()
+                
+                // Verificar se o container foi encontrado
+                if (containerId) {
+                    // Copiar os resultados do volume para o workspace do Jenkins
+                    bat "docker cp ${containerId}:/app/allure-results ./allure-results"
+                } else {
+                    error "Container do Playwright não encontrado."
+                }
+            }
+
+            // Limpar workspace
             cleanWs()
-            allure includeProperties: false, results: [[path: 'app/allure-results']]
+
+            // Gerar relatórios do Allure
+            allure includeProperties: false, results: [[path: 'allure-results']]
         }
     }
 }
