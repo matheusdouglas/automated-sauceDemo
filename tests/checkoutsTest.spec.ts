@@ -71,7 +71,7 @@ test.describe('Checkout Validation', () => {
 
     // Verificar se o erro é exibido
     const errorMessage = page.locator('h3[data-test="error"]');
-    await expect(errorMessage).toHaveText('Error: Postal Code is require');
+    await expect(errorMessage).toHaveText('Error: Postal Code is required');
   });
 
 
