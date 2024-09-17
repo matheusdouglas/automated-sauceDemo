@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Obter o ID do container do Playwright
-                    def containerId = bat(returnStdout: true, script: 'docker ps -q -f teste-e2e').trim()
+                    def containerId = bat 'docker ps -q -f teste-e2e'
                     
                     // Verificar se o container foi encontrado
                     if (containerId) {
