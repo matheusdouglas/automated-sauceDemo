@@ -25,9 +25,16 @@ pipeline {
     }
     post {
         always {
-            // Limpar workspace e gerar relatórios do Allure
-            cleanWs()
-            allure includeProperties: false, results: [[path: './allure-results']]
+            script {
+                // Limpar workspace
+                cleanWs()
+                
+                // Listar conteúdo do diretório de resultados para debug
+                bat 'dir allure-results'
+                
+                // Gerar relatórios do Allure
+                allure includeProperties: false, results: [[path: 'allure-results']]
+            }
         }
     }
 }
