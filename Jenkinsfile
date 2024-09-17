@@ -26,9 +26,8 @@ pipeline {
     post {
         always {
             // Limpar workspace e gerar relatórios do Allure
-            bat 'dir allure-results' // Para listar o conteúdo do diretório de resultados
             cleanWs()
-            allure includeProperties: false, results: [[path: 'allure-results']]
+            allure includeProperties: false, results: [[path: './allure-results']]
         }
     }
 }
