@@ -30,10 +30,10 @@ pipeline {
                 cleanWs()
                 
                 // Copiar diretório de resultados do contêiner para o workspace
-                bat 'docker cp $(docker ps -q -f name=teste-e2e-playwright-1):/app/allure-results allure-results'
+               def containerId = bat(script: 'docker ps -q -f name=teste-e2e-playwright-1', returnStdout: true).trim()
                 
                 // Verificar o conteúdo do diretório de resultados para depuração
-                bat 'dir allure-results'
+                bat "docker cp ${containerId}:/app/allure-results allure-results"
                 
                 // Gerar relatórios do Allure
                 allure includeProperties: false, results: [[path: 'allure-results']]
