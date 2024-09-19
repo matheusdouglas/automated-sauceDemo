@@ -2,11 +2,12 @@ import { test, expect } from "@playwright/test";
 import { ProductPage } from "../src/pages/productPage";
 import { LoginPage } from "../src/pages/loginPage";
 import { users } from "../src/helpers/users";
-import {severity, Severity} from "allure-js-commons"
+import {severity, Severity, issue} from "allure-js-commons"
 
 
 test("Add product to cart and check", async ({ page }) => {
   await severity(Severity.CRITICAL);
+  await issue("DC-802", "https://adaptivesoft.atlassian.net/jira/software/c/projects/DC/boards/2?selectedIssue=DC-802");
   const productPage = new ProductPage(page);
   const loginPage = new LoginPage(page);
 
