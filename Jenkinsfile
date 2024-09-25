@@ -1,4 +1,5 @@
 pipeline {
+    agent any // Adiciona a seção agent para executar em qualquer nó disponível
     stages {
         stage('Build and Test') {
             steps {
