@@ -46,7 +46,7 @@ test.describe('Checkout Validation', () => {
 
     // Verificar se o erro é exibido
     const errorMessage = page.locator('h3[data-test="error"]');
-    await expect(errorMessage).toHaveText('Error: First Name is required');
+    await expect(errorMessage).toHaveText('Error: First Name is require');
   });
 
   // Testar se o campo "Last Name" está vazio
