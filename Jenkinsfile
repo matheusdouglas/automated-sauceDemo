@@ -1,5 +1,4 @@
 pipeline {
-    
     stages {
         stage('Build and Test') {
             steps {
@@ -23,8 +22,7 @@ pipeline {
                 }
             }
         }
-\
-    }
+    } // <- Removi o caractere '\' que estava incorreto e fechei a chave 'stages' corretamente
     post {
         always {
             // Gerar relatórios do Allure
