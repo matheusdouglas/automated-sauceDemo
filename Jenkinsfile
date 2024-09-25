@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent 
     stages {
         stage('Build and Test') {
             steps {
@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-
+\
     }
     post {
         always {

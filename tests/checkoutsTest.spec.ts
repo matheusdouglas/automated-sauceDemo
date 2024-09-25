@@ -5,6 +5,7 @@ import { ProductPage } from "../src/pages/productPage";
 import { CheckoutPage } from "../src/pages/CheckoutPage";
 
 
+
 test.describe('Checkout Validation', () => {
 
   // Realiza login e navega até a página de checkout
@@ -45,7 +46,7 @@ test.describe('Checkout Validation', () => {
 
     // Verificar se o erro é exibido
     const errorMessage = page.locator('h3[data-test="error"]');
-    await expect(errorMessage).toHaveText('Error: First Name is require');
+    await expect(errorMessage).toHaveText('Error: First Name is required');
   });
 
   // Testar se o campo "Last Name" está vazio

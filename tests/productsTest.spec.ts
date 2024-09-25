@@ -15,7 +15,7 @@ test("Add product to cart and check", async ({ page }) => {
   await loginPage.signIn(users.standard_user);
 
   // Adiciona um produto específico ao carrinho
-  const productName = "Sauce Labs Backpac";
+  const productName = "Sauce Labs Backpack";
   await productPage.addProductToCart(productName);
 
   // Vai para o carrinho e interage com a página de carrinho
